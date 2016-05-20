@@ -1,105 +1,243 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Line Chart</title>
-<style>
+	<meta charset="UTF-8">
+	<title>Line Chart</title>
+	<style>
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: black;
+		}
 
-  .axis path,
-  .axis line{
-    fill: none;
-    stroke: black;
-  }
+		.line {
+			fill: none;
+			stroke: blue;
+			stroke-width: 2px;
+		}
 
-  .line{
-    fill: none;
-    stroke: blue;
-    stroke-width: 2px;
-  }
+		.tick text {
+			font-size: 12px;
+		}
 
-  .tick text{
-    font-size: 12px;
-  }
-
-  .tick line{
-    opacity: 0.2;
-  }
-
-</style>
+		.tick line {
+			opacity: 0.2;
+		}
+	</style>
 </head>
+
 <body>
-<script src="http://d3js.org/d3.v3.js"></script>
-<script>
+	<script src="http://d3js.org/d3.v3.js"></script>
+	<script>
+		var margin = {
+				top: 20,
+				right: 100,
+				bottom: 30,
+				left: 100
+			},
+			width = 1500 - margin.left - margin.right,
+			height = 500 - margin.top - margin.bottom;
 
-var margin = {top: 20, right: 100, bottom: 30, left: 100},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+		var dataset = [{
+			x: 1976,
+			y: 500000
+		}, {
+			x: 1977,
+			y: 828813
+		}, {
+			x: 1978,
+			y: 234986
+		}, {
+			x: 1979,
+			y: 893721
+		}, {
+			x: 1980,
+			y: 333666
+		}, {
+			x: 1981,
+			y: 902922
+		}, {
+			x: 1982,
+			y: 773729
+		}, {
+			x: 1983,
+			y: 909876
+		}, {
+			x: 1984,
+			y: 456789
+		}, {
+			x: 1985,
+			y: 238867
+		}, {
+			x: 1986,
+			y: 293847
+		}, {
+			x: 1987,
+			y: 883374
+		}, {
+			x: 1988,
+			y: 999922
+		}, {
+			x: 1989,
+			y: 335577
+		}, {
+			x: 1990,
+			y: 827364
+		}, {
+			x: 1991,
+			y: 882223
+		}, {
+			x: 1992,
+			y: 334455
+		}, {
+			x: 1993,
+			y: 772211
+		}, {
+			x: 1994,
+			y: 112255
+		}, {
+			x: 1995,
+			y: 837262
+		}, {
+			x: 1996,
+			y: 662522
+		}, {
+			x: 1997,
+			y: 445577
+		}, {
+			x: 1998,
+			y: 222277
+		}, {
+			x: 1999,
+			y: 683833
+		}, {
+			x: 2000,
+			y: 998762
+		}, {
+			x: 2001,
+			y: 334477
+		}, {
+			x: 2002,
+			y: 889977
+		}, {
+			x: 2003,
+			y: 445533
+		}, {
+			x: 2004,
+			y: 233456
+		}, {
+			x: 2005,
+			y: 128374
+		}, {
+			x: 2006,
+			y: 445587
+		}, {
+			x: 2007,
+			y: 737485
+		}, {
+			x: 2008,
+			y: 123433
+		}, {
+			x: 2009,
+			y: 556633
+		}, {
+			x: 2010,
+			y: 883736
+		}, {
+			x: 2011,
+			y: 993300
+		}, {
+			x: 2012,
+			y: 746382
+		}, {
+			x: 2013,
+			y: 773344
+		}, {
+			x: 2014,
+			y: 884466
+		}, {
+			x: 2015,
+			y: 337744
+		}, ];
 
-var dataset = [
-  {x: 0, y: 5},
-  {x: 1, y: 8},
-  {x: 2, y: 13},
-  {x: 3, y: 12},
-  {x: 4, y: 16},
-  {x: 5, y: 21},
-  {x: 6, y: 18},
-  {x: 7, y: 23},
-  {x: 8, y: 24},
-  {x: 9, y: 28},
-  {x: 10, y: 35},
-  {x: 11, y: 30},
-  {x: 12, y: 32},
-  {x: 13, y: 36},
-  {x: 14, y: 40},
-  {x: 15, y: 38},
-];
+		var xScale = d3.scale.linear()
+			.domain([d3.min(dataset, function(d) {
+				return d.x;
+			}), d3.max(dataset, function(d) {
+				return d.x;
+			})])
+			.range([0, width]);
 
-var xScale = d3.scale.linear()
-    .domain([0, d3.max(dataset, function(d){ return d.x; })])
-    .range([0, width]);
+		var yScale = d3.scale.linear()
+			.domain([0, d3.max(dataset, function(d) {
+				return d.y;
+			})])
+			.range([height, 0]);
 
-var yScale = d3.scale.linear()
-    .domain([0, d3.max(dataset, function(d){ return d.y; })])
-    .range([height, 0]);
+		var xAxis = d3.svg.axis()
+			.scale(xScale)
+			.orient("bottom")
+			.innerTickSize(-height)
+			.outerTickSize(0)
+			.tickPadding(10)
+			.ticks(33)
+			.tickFormat(d3.format("d"));
 
-var xAxis = d3.svg.axis()
-    .scale(xScale)
-    .orient("bottom")
-    .innerTickSize(-height)
-    .outerTickSize(0)
-    .tickPadding(10);
+		var yAxis = d3.svg.axis()
+			.scale(yScale)
+			.orient("left")
+			.innerTickSize(-width)
+			.outerTickSize(0)
+			.tickPadding(10);
 
-var yAxis = d3.svg.axis()
-    .scale(yScale)
-    .orient("left")
-    .innerTickSize(-width)
-    .outerTickSize(0)
-    .tickPadding(10);
+		var line = d3.svg.line()
+			.interpolate("basis")
+			.x(function(d) {
+				return xScale(d.x);
+			})
+			.y(function(d) {
+				return yScale(d.y);
+			});
 
-var line = d3.svg.line()
-    .x(function(d) { return xScale(d.x); })
-    .y(function(d) { return yScale(d.y); });
+		var svg = d3.select("body").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis)
+			.selectAll("text")
+			.attr("y", 0)
+			.attr("x", 9)
+			.attr("dy", ".35em")
+			.attr("transform", "translate(0,30)")
+			.attr("transform", "rotate(-45)");
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
+		svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis)
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
+		svg.append("path")
+			.data([dataset])
+			.attr("class", "line")
+			.attr("d", line);
 
-  svg.append("path")
-      .data([dataset])
-      .attr("class", "line")
-      .attr("d", line);
+		// svg.append("g")
+		// 	.attr("class", "x axis")
+		// 	.attr("transform", "translate(0," + height + ")")
+		// 	.call(xAxis)
+		// 	.selectAll("text")
+		// 	.attr("y", 0)
+		// 	.attr("x", 9)
+		// 	.attr("dy", ".35em")
+		// 	.attr("transform", "rotate(90)")
+		// 	.style("text-anchor", "start");
 
-</script>
+	</script>
 </body>
+
 </html>
