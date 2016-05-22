@@ -180,9 +180,9 @@
 
 	var tip = d3.tip()
 	    .attr('class', 'd3-tip')
-	    // .offset([-10, 0])
+	    .offset([-10, 0])
 	    .html(function(d) {
-	        return d;
+	        return d.y;
 	    });
 
 
@@ -230,5 +230,5 @@
 	    })
 	    .attr("r", 5)
 	    .style("fill", "red")
-		.on('mouseover', tip.show)
-  .on('mouseout', tip.hide);
+	    .on('mouseover', tip.show)
+	    .on('mouseout', tip.hide);
