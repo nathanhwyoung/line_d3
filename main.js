@@ -178,12 +178,21 @@
 	        return yScale(d.y);
 	    });
 
+	var tip = d3.tip()
+	    .attr('class', 'd3-tip')
+	    // .offset([-10, 0])
+	    .html(function(d) {
+	        return d;
+	    });
+
 
 	var svg = d3.select("body").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	    .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	svg.call(tip);
 
 	svg.append("g")
 	    .attr("class", "x axis")
@@ -204,10 +213,10 @@
 	    .attr("class", "line")
 	    .attr("d", line);
 
-		svg.append("path")
-			.datum(dataset)
-			.attr("class", "area")
-			.attr("d", area);
+	svg.append("path")
+	    .datum(dataset)
+	    .attr("class", "area")
+	    .attr("d", area);
 
 	svg.selectAll("circle")
 	    .data(dataset)
@@ -220,4 +229,6 @@
 	        return yScale(d.y);
 	    })
 	    .attr("r", 5)
-	    .style("fill", "red");
+	    .style("fill", "red")
+		.on('mouseover', tip.show)
+  .on('mouseout', tip.hide);
