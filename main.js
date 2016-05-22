@@ -168,6 +168,16 @@
 	        return yScale(d.y);
 	    });
 
+	var area = d3.svg.area()
+	    .interpolate("cardinal")
+	    .x(function(d) {
+	        return xScale(d.x);
+	    })
+	    .y0(height)
+	    .y1(function(d) {
+	        return yScale(d.y);
+	    });
+
 
 	var svg = d3.select("body").append("svg")
 	    .attr("width", width + margin.left + margin.right)
@@ -194,11 +204,20 @@
 	    .attr("class", "line")
 	    .attr("d", line);
 
+		svg.append("path")
+			.datum(dataset)
+			.attr("class", "area")
+			.attr("d", area);
+
 	svg.selectAll("circle")
 	    .data(dataset)
-		.enter()
-		.append("circle")
-	    .attr("cx", function(d) { return xScale(d.x); })
-	    .attr("cy", function(d) { return yScale(d.y); })
+	    .enter()
+	    .append("circle")
+	    .attr("cx", function(d) {
+	        return xScale(d.x);
+	    })
+	    .attr("cy", function(d) {
+	        return yScale(d.y);
+	    })
 	    .attr("r", 5)
 	    .style("fill", "red");
