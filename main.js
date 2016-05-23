@@ -138,9 +138,7 @@
 	    .range([0, width]);
 
 	var yScale = d3.scale.linear()
-	    .domain([0, d3.max(dataset, function(d) {
-	        return d.y;
-	    })])
+	    .domain([0,1000000])
 	    .range([height, 0]);
 
 	var xAxis = d3.svg.axis()
