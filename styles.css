@@ -16,7 +16,7 @@
 
 /*SHADING*/
 .area {
-	fill: rgb(242, 240, 223);
+	fill: #f9f8f1;
 	stroke-width: 0;
 	opacity: 0.7;
 }
