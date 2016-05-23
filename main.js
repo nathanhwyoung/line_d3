@@ -4,8 +4,8 @@
 	        bottom: 30,
 	        left: 100
 	    },
-	    width = 1500 - margin.left - margin.right,
-	    height = 500 - margin.top - margin.bottom;
+	    width = 1000 - margin.left - margin.right,
+	    height = 400 - margin.top - margin.bottom;
 
 	var dataset = [{
 	    x: 1976,
