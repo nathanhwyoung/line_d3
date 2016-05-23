@@ -228,7 +228,7 @@
 	    .attr("cy", function(d) {
 	        return yScale(d.y);
 	    })
-	    .attr("r", 5)
-	    .style("fill", "red")
+	    .attr("r", 6)
+	    .style("fill", "rgb(214, 205, 30)")
 	    .on('mouseover', tip.show)
 	    .on('mouseout', tip.hide);

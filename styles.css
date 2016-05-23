@@ -1,13 +1,10 @@
-
-
-
 .axis path, .axis line {
     fill: none;
     stroke: black;
 }
 .line {
     fill: none;
-    stroke: blue;
+    stroke: rgb(214, 205, 30);
     stroke-width: 2px;
 }
 .tick text {
@@ -17,9 +14,13 @@
     opacity: 0.2;
 }
 
+/*.area {
+	background-color: rgb(242, 240, 223);
+}*/
+
 /*SHADING*/
 .area {
-	fill: lightsteelblue;
+	fill: rgb(242, 240, 223);
 	stroke-width: 0;
 	opacity: 0.7;
 }
