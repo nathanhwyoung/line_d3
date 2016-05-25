@@ -1,3 +1,4 @@
+/*PATH*/
 .axis path, .axis line {
     fill: none;
     stroke: black;
@@ -29,6 +30,9 @@
   background: #5EAA00;
   color: #fff;
   border-radius: 2px;
+  position: absolute;
+  top:100px;
+  left:200px;
 }
 
 /* Creates a small triangle extender for the tooltip */
@@ -39,14 +43,14 @@
   width: 100%;
   line-height: 1;
   color: #5EAA00;
-  content: "\25BC";
+  content: "\25B2";
   position: absolute;
   text-align: center;
 }
 
 /* Style northward tooltips differently */
 .d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
+  margin: -52px 0 0 0;
+  top: 110%;
   left: 0;
 }
